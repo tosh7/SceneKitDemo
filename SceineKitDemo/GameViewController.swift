@@ -24,6 +24,11 @@ class GameViewController: UIViewController {
     
     func setupView() {
         sceneView = view as! SCNView
+        
+        sceneView.showsStatistics = true
+        sceneView.allowsCameraControl = true
+        sceneView.autoenablesDefaultLighting = true
+        
         setupScene()
     }
     
@@ -39,7 +44,20 @@ class GameViewController: UIViewController {
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 5)
         scene.rootNode.addChildNode(cameraNode)
         
+        addSphere()
         addSquare()
+    }
+    
+    func addSphere() {
+        let geometry = SCNSphere(radius: 1.0)
+        let sphereNode = SCNNode(geometry: geometry)
+        let material = SCNMaterial()
+        
+        material.diffuse.contents = UIColor.red
+        geometry.firstMaterial = material
+        
+        sphereNode.position = SCNVector3(x: 0, y: 1, z: 0)
+        scene.rootNode.addChildNode(sphereNode)
     }
     
     func addSquare() {
